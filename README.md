@@ -56,3 +56,109 @@ We are also going to need OpenZeppelin's wonderful library of contracts to exten
 ```
 git clone https://github.com/OpenZeppelin/openzeppelin-solidity.git
 ```
+
+### 12:10 PM - Write Nifties and Nfties Smart Contracts
+
+The smart contracts will be fairly simple. We will want to extend the fantastic work by OpenZeppelin to create our own ERC-721s with metadata for the different parts of the NFT monsters:
+
+```
+struct Token{
+  uint8 body;
+  uint8 feet;
+  uint8 head;
+  uint8 mouth;
+  uint8 extra;
+  uint64 birthBlock;
+}
+```
+
+I'll also be reusing some old code from my game https://galleass.io to pull uint8 random numbers from the blockhash:
+
+```
+bytes32 sudoRandomButTotallyPredictable = keccak256(abi.encodePacked(totalSupply(),blockhash(block.number - 1)));
+uint8 body = (uint8(sudoRandomButTotallyPredictable[0])%5)+1;
+uint8 feet = (uint8(sudoRandomButTotallyPredictable[1])%5)+1;
+uint8 head = (uint8(sudoRandomButTotallyPredictable[2])%5)+1;
+uint8 mouth = (uint8(sudoRandomButTotallyPredictable[3])%5)+1;
+uint8 extra = (uint8(sudoRandomButTotallyPredictable[4])%5)+1;
+```
+
+Obviously, if this was somehow tied to real money it would be a very bad idea to generate randomness on-chian. I wrote an article that explains that more here: https://medium.com/coinmonks/is-block-blockhash-block-number-1-okay-14a28e40cc4b
+
+It will take me a bit to write these smart contracts. I'll used Clevis to create, compile, deploy, and publish these contracts into my app after firing up a local testrpc:
+
+```
+ganache-cli
+clevis create Nfties
+clevis compile Nfties
+clevis deploy Nfties 0
+clevis create Nifties
+clevis compile Nifties
+clevis deploy Nifties 0
+clevis test publish
+```
+
+All of this can be run with a single clevis command too:
+
+```
+clevis test full
+```
+
+Once the contracts are deployed to my local testnet, I can test that the create function works by calling create as account 1:
+
+```
+clevis contract create Nifties 1
+```
+
+Then, I can call get for the token with id 0:
+
+```
+clevis contract get Nifties 0
+```
+
+Neat, this returns the metadata for the monster and it looks like it did the random number generation correctly:
+
+```
+Result {
+  '0': '0x173A937400860b7CdAB63c1d462B05B8426f6991',
+  '1': '5',
+  '2': '2',
+  '3': '7',
+  '4': '7',
+  '5': '10',
+  owner: '0x173A937400860b7CdAB63c1d462B05B8426f6991',
+  body: '5',
+  feet: '2',
+  head: '7',
+  mouth: '7',
+  birthBlock: '10'
+}
+```
+
+Let's also look to see that the token's URI is correct because this was the headiest part of the contract (and most gas inefficient, Solidity pros will laugh when they see my code):
+
+```
+clevis contract tokenURI Nifties 0
+```
+
+returns:
+
+```
+https://nifties.io/tokens/nifties-5-2-7-7.png
+```
+At this point, the above website is not up yet, but it will be by the end of this hack! Here is what that monster looks like:
+
+![nifties-5-2-7-7.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/tokens/nifties-5-2-7-7.png)
+
+My contracts use about 45% of all the gas just to do the string concat... it's pretty dirty, but it's a fast and loose hackathon day!
+
+I'll do the same tests for the Nfties contract and then get the code pushed out:
+
+```
+clevis contract create NFties 2
+clevis contract get Nfties 0
+```
+
+It looks good. Damn these really came together quickly. Big thanks to OpenZeppelin and the contributors to those well curated contracts. We stand on some pretty impressive shoulders :)
+
+Hacking these contracts up quickly reminded me of whailing away on the contracts for my game Cryptogs.io in the hotel room at #EthDenver. Here is one of the more interesting commits from that night: https://github.com/austintgriffith/cryptogs/commit/4cada47cbb18a8a27221b10b38ccb98ad80f5006
