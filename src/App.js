@@ -130,7 +130,6 @@ class App extends Component {
                   <div style={{position:"absolute",left:160,top:-15}}><img src={"tokens/nifties-2-4-7-1.png"} style={{maxHeight:160}}/></div>
                   <div style={{position:"absolute",left:230,top:-15}}><img src={"tokens/nifties-1-5-4-2.png"} style={{maxHeight:160}}/></div>
                 </div>
-
               )
             }}
       </Motion>
