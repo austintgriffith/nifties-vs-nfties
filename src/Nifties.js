@@ -50,10 +50,10 @@ class Nifties extends Component {
       let offset = -60
       tokensOfOwnerDisplay = tokensOfOwner.map((token)=>{
         let thisImage = "tokens/nifties-"+token.body+"-"+token.feet+"-"+token.head+"-"+token.mouth+".png";
-        console.log("As a sanity check, make sure "+thisImage+" and "+token.uri+" match")
+        //console.log("As a sanity check, make sure "+thisImage+" and "+token.uri+" match")
         offset+=80
         return (
-          <div style={{position:"absolute",left:offset,top:-15}}>
+          <div key={"Niftie"+token.id} style={{position:"absolute",left:offset,top:-15}}>
             <img src={thisImage} style={{maxHeight:160}}/>
           </div>
         )

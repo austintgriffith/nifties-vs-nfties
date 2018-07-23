@@ -270,8 +270,7 @@ The **Events** component is used to follow events from contracts. I will use thi
   block={block}
   id={"_id"}
   onUpdate={(eventData,allEvents)=>{
-    console.log("EVENT DATA:",eventData)
-    this.setState({events:allEvents})
+    this.setState({nifties:allEvents})
   }}
 />
 <Events
@@ -280,8 +279,7 @@ The **Events** component is used to follow events from contracts. I will use thi
   block={block}
   id={"_id"}
   onUpdate={(eventData,allEvents)=>{
-    console.log("EVENT DATA:",eventData)
-    this.setState({events:allEvents})
+    this.setState({nfties:allEvents})
   }}
 />
 ```
@@ -398,4 +396,35 @@ And then we want the "Feed The Nifties" button to trigger the create function of
 }} />
 ```
 
-Check out the code for the the [Nifties.js component here](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/Nifties.js). 
+Check out the code for the the [Nifties.js component here](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/Nifties.js).
+
+### 3:45 PM - Parse Create Events and Display Tokens
+
+Next we need to watch for all **Create** events and display the list of all votes for each contract. Thanks to the **Events** components we already loaded in, we should have an array in the state object for all **Nifties** and **Nfties** created. This probably won't scale, but for a fast and loose implementation I'm just going to display the last 20 with a total count.
+
+I'm also going to display the identicon for the owner of each monster too.
+
+```
+npm install --save 'react-blockies'
+import Blockies from 'react-blockies'
+```
+
+```
+let niftieDisplayCount = 0
+let allNifties = this.state.nifties.map((token)=>{
+  while(niftieDisplayCount++<TOKENDISPLAYLIMIT){
+    let thisImage = "tokens/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
+    return (
+      <div key={"niftieToken"+token._id}>
+        <div style={{position:'absolute',right:0,bottom:40}}>
+          <Blockies
+            seed={token._owner.toLowerCase()}
+            scale={2}
+          />
+        </div>
+        <img src={thisImage} style={niftiesStyle}/>
+      </div>
+    )
+  }
+})
+```

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Metamask, Gas, ContractLoader, Transactions, Events, Scaler } from "dapparatus"
 import {Motion, spring, presets} from 'react-motion'
+import Blockies from 'react-blockies'
 import Web3 from 'web3';
 import Nifties from './Nifties.js';
 import StackGrid from "react-stack-grid";
 
 import './App.css';
+
+const TOKENDISPLAYLIMIT = 20
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +17,9 @@ class App extends Component {
       web3: false,
       account: false,
       gwei: 4,
-      openInventory: 0
+      openInventory: 0,
+      nifties: [],
+      nfties: [],
     }
   }
   componentDidMount() {
@@ -84,8 +89,7 @@ class App extends Component {
               block={block}
               id={"_id"}
               onUpdate={(eventData,allEvents)=>{
-                console.log("EVENT DATA:",eventData)
-                this.setState({events:allEvents})
+                this.setState({nifties:allEvents.reverse()})
               }}
             />
             <Events
@@ -94,8 +98,7 @@ class App extends Component {
               block={block}
               id={"_id"}
               onUpdate={(eventData,allEvents)=>{
-                console.log("EVENT DATA:",eventData)
-                this.setState({events:allEvents})
+                this.setState({nfties:allEvents.reverse()})
               }}
             />
           </div>
@@ -149,9 +152,32 @@ class App extends Component {
         cursor:"pointer"
     }
     let niftiesStyle = {
-      maxWidth:100
+      maxWidth:100,
+      zIndex:10
     }
 
+    let niftieDisplayCount = 0
+    let allNifties = this.state.nifties.map((token)=>{
+      while(niftieDisplayCount++<TOKENDISPLAYLIMIT){
+        let thisImage = "tokens/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
+        return (
+          <div key={"niftieToken"+token._id}>
+            <div style={{position:'absolute',right:0,bottom:40}}>
+              <Blockies
+                seed={token._owner.toLowerCase()}
+                scale={2}
+              />
+            </div>
+            <img src={thisImage} style={niftiesStyle}/>
+          </div>
+        )
+      }
+    })
+
+    let nifitiesCount = 0
+    if(this.state.nifties){
+      nifitiesCount = this.state.nifties.length
+    }
     let leftCol = (
       <div>
         <Scaler config={{origin:"center top",adjustedZoom:1.4}}>
@@ -159,15 +185,11 @@ class App extends Component {
             tx(contracts.Nifties.create())
           }} />
         </Scaler>
+        <div style={{position:"absolute",right:101,top:86}}>
+          ( {nifitiesCount} )
+        </div>
         <StackGrid columnWidth={93}>
-          <div key="key1"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
-          <div key="key2"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
-          <div key="key3"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
-          <div key="key4"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
-          <div key="key5"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
-          <div key="key6"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
-          <div key="key7"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
-          <div key="key8"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
+          {allNifties}
         </StackGrid>
       </div>
     )
@@ -196,16 +218,12 @@ class App extends Component {
         {metamask}
         {connectedDisplay}
         {events}
-
         {title}
-
         {inventory}
-
         <StackGrid columnWidth={"50%"}>
           <div key="leftCol" className={"col"}>{leftCol}</div>
           <div key="rightCol" className={"col"}>{rightCol}</div>
         </StackGrid>
-
       </div>
     );
   }
