@@ -41,4 +41,18 @@ Here is an example token *nfties-5-4-5-3-5.png* (body 5, feet 4, head 5, mouth 3
 One of the first things I do when building a Dapp is carve out the service worker from [index.js](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/index.js) because of issues you end up having down the road with web3, ssl, and android:
 https://medium.com/coinmonks/react-service-worker-web3-android-98970a6691ad
 
-I also like to strip CRA down to just the basics and get a little cleaner [App.css](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/App.css) file ready. Plus getting the favicon looking right and add in the SEO junk. 
+I also like to strip CRA down to just the basics and get a little cleaner [App.css](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/App.css) file ready. Plus getting the favicon looking right and add in the SEO junk.
+
+### 10:50 AM - Clevis & Zeppelin
+
+I have my own blockchain orchestration tool called Clevis that is similar to Truffle. Building it helped me understand a lot of the underlying mechanics work so I stick to using it instead of switching to Truffle, but they can work harmoniously together if needed. Learn more about clevis here: https://github.com/austintgriffith/clevis
+
+```
+clevis init
+```
+
+We are also going to need OpenZeppelin's wonderful library of contracts to extend:
+
+```
+git clone https://github.com/OpenZeppelin/openzeppelin-solidity.git
+```
