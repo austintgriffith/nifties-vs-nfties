@@ -428,3 +428,17 @@ let allNifties = this.state.nifties.map((token)=>{
   }
 })
 ```
+
+### 4:00 PM - Run React on Port 80 - Hostname nfties.io vs nifties.io
+
+Okay most of the functionality is working for the Nifities. As I mentioned earlier, I'd like to run this thing on two different domains because I bought both nfties.io and nifties.io in a crime of passion. Do you do that too? I own so many stupid domains. Anyways, I'm going to run the server on port 80 and then use my /etc/hosts to point both nfties.io vs nifties.io localhost. Then, I can have my source code detect what domain you are on and display it correctly.
+
+```
+10.0.0.107 nfties.io
+10.0.0.107 nifties.io
+```
+
+Now when I visit nfties.io it brings me to the right page, I just have to detect it and swap things around.
+
+
+![nftiesio.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/nftiesio.png)
