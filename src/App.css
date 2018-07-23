@@ -1,16 +1,16 @@
 body {
   font-family: sans-serif;
-  color:#555555;
+  color:#888888;
   font-size:28px;
   font-weight:bold;
   background-color: #313131;
 }
 a {
-  color:#444444;
+  color:#aaaaaa;
   text-decoration: none;
 }
 a:visited {
-  color:#666666;
+  color:#999999;
   text-decoration: none;
 }
 

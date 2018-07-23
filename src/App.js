@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Metamask, Gas, ContractLoader, Transactions, Events, Scaler } from "dapparatus"
 import {Motion, spring, presets} from 'react-motion'
 import Web3 from 'web3';
+import Nifties from './Nifties.js';
 import StackGrid from "react-stack-grid";
 
 import './App.css';
@@ -110,31 +111,38 @@ class App extends Component {
       </div>
     )
 
-    let inventory = (
-      <Motion
-            defaultStyle={{
-              openAmount:0
-            }}
-            style={{
-              openAmount:spring(this.state.openInventory,{ stiffness: 80, damping: 8 })
-            }}
-            >
-            {currentStyles => {
-              return (
-                <div style={{position:"relative",overflow:"hidden",width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
-                  <Scaler config={{origin:"right 50px",adjustedZoom:1.2}}>
-                    <img src="twitterbutton.png" style={{maxWidth:150,margin:10,float:'right',marginRight:15,cursor:"pointer"}}/>
-                  </Scaler>
-                  <div style={{position:"absolute",left:20,top:-15}}><img src={"tokens/nifties-2-7-3-4.png"} style={{maxHeight:160}}/></div>
-                  <div style={{position:"absolute",left:90,top:-15}}><img src={"tokens/nifties-5-3-6-3.png"} style={{maxHeight:160}}/></div>
-                  <div style={{position:"absolute",left:160,top:-15}}><img src={"tokens/nifties-2-4-7-1.png"} style={{maxHeight:160}}/></div>
-                  <div style={{position:"absolute",left:230,top:-15}}><img src={"tokens/nifties-1-5-4-2.png"} style={{maxHeight:160}}/></div>
-                </div>
-              )
-            }}
-      </Motion>
-    )
+    let inventory
 
+    if(web3&&contracts&&contracts.Nifties){
+      inventory = (
+        <Motion
+             defaultStyle={{
+               openAmount:0
+             }}
+             style={{
+               openAmount:spring(this.state.openInventory,{ stiffness: 80, damping: 8 })
+             }}
+             >
+             {currentStyles => {
+               return (
+                 <div style={{position:"relative",overflow:"hidden",width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
+                   <Nifties
+                     contract={contracts.Nifties}
+                     account={account}
+                     web3={web3}
+                     tx={tx}
+                     onUpdate={(tokensOfOwner)=>{
+                       if(tokensOfOwner.length>0){
+                         this.setState({openInventory:160})
+                       }
+                     }}
+                   />
+                 </div>
+               )
+             }}
+        </Motion>
+      )
+    }
 
     let bigButtonStyle = {
         maxWidth:200,
@@ -147,7 +155,9 @@ class App extends Component {
     let leftCol = (
       <div>
         <Scaler config={{origin:"center top",adjustedZoom:1.4}}>
-          <img src="feedthenifties.png" style={bigButtonStyle} onClick={()=>{this.setState({openInventory:160})}}/>
+          <img src="feedthenifties.png" style={bigButtonStyle} onClick={()=>{
+            tx(contracts.Nifties.create())
+          }} />
         </Scaler>
         <StackGrid columnWidth={93}>
           <div key="key1"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>

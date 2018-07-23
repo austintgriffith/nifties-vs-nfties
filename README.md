@@ -378,3 +378,24 @@ Since the original Nifties vs Nfties debate was just a Twitter back-and-forth, @
 
 
 ![inventory.gif](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/inventory.gif)
+
+
+### 3:15 PM - Interacting with the Smart Contracts - Wiring up Buttons
+
+The next step is to create the **Niftie** component to handle the logic of creating new tokens and displaying the inventory of the player.
+
+The key to these components is the **loadTokensOfOwner** interval which is constantly polling the contract:
+
+```
+let tokensOfOwner = await contract.tokensOfOwner(account).call()
+```
+
+And then we want the "Feed The Nifties" button to trigger the create function of the contract:
+
+```  
+<img src="feedthenifties.png" style={bigButtonStyle} onClick={()=>{
+    tx(contracts.Nifties.create())
+}} />
+```
+
+Check out the code for the the [Nifties.js component here](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/Nifties.js). 
