@@ -4,6 +4,7 @@ import {Motion, spring, presets} from 'react-motion'
 import Blockies from 'react-blockies'
 import Web3 from 'web3';
 import Nifties from './Nifties.js';
+import Nfties from './Nfties.js';
 import StackGrid from "react-stack-grid";
 
 import './App.css';
@@ -31,6 +32,8 @@ class App extends Component {
   }
   render() {
     let {web3,account,contracts,tx,gwei,block,avgBlockTime,etherscan} = this.state
+
+    let nft = (window.location.hostname=="nfties.io")
 
     let metamask = (
       <Metamask
@@ -106,8 +109,9 @@ class App extends Component {
       }
     }
 
+
     let titleImage = "niftiesvsnfties.png"
-    if(window.location.hostname=="nfties.io"){
+    if(nft){
       titleImage = "nftiesvsnifties.png"
     }
 
@@ -121,7 +125,40 @@ class App extends Component {
 
     let inventory
 
-    if(web3&&contracts&&contracts.Nifties){
+    if(web3&&contracts&&contracts.Nfties&&contracts.Nifties){
+
+      let theNftDisplay = ""
+
+      if(nft){
+        theNftDisplay = (
+          <Nfties
+            contract={contracts.Nfties}
+            account={account}
+            web3={web3}
+            tx={tx}
+            onUpdate={(tokensOfOwner)=>{
+              if(tokensOfOwner.length>0){
+                this.setState({openInventory:160})
+              }
+            }}
+          />
+        )
+      }else{
+        theNftDisplay = (
+          <Nifties
+            contract={contracts.Nifties}
+            account={account}
+            web3={web3}
+            tx={tx}
+            onUpdate={(tokensOfOwner)=>{
+              if(tokensOfOwner.length>0){
+                this.setState({openInventory:160})
+              }
+            }}
+          />
+        )
+      }
+
       inventory = (
         <Motion
              defaultStyle={{
@@ -134,17 +171,7 @@ class App extends Component {
              {currentStyles => {
                return (
                  <div style={{position:"relative",overflow:"hidden",width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
-                   <Nifties
-                     contract={contracts.Nifties}
-                     account={account}
-                     web3={web3}
-                     tx={tx}
-                     onUpdate={(tokensOfOwner)=>{
-                       if(tokensOfOwner.length>0){
-                         this.setState({openInventory:160})
-                       }
-                     }}
-                   />
+                  {theNftDisplay}
                  </div>
                )
              }}
@@ -164,10 +191,9 @@ class App extends Component {
     let niftieDisplayCount = 0
     let allNifties = this.state.nifties.map((token)=>{
       if(token._id && niftieDisplayCount++<TOKENDISPLAYLIMIT){
-        console.log("DISPLAY",token)
         let thisImage = "tokens/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
         return (
-          <div key={"niftieToken"+token._id}>
+          <div key={"niftieToken"+niftieDisplayCount}>
             <div style={{position:'absolute',right:0,bottom:40}}>
               <Blockies
                 seed={token._owner.toLowerCase()}
@@ -184,12 +210,24 @@ class App extends Component {
     if(this.state.nifties){
       niftiesCount = this.state.nifties.length
     }
+    let niftCTA = ""
+    if(!nft){
+      niftCTA = (
+        <img src="feedthenifties.png" style={bigButtonStyle} onClick={()=>{
+          tx(contracts.Nifties.create())
+        }} />
+      )
+    }else{
+      niftCTA = (
+        <img src="yeseyeinnifties.png" style={bigButtonStyle} onClick={()=>{
+          window.location = "http://nifties.io"
+        }} />
+      )
+    }
     let leftCol = (
       <div>
         <Scaler config={{origin:"center top",adjustedZoom:1.4}}>
-          <img src="feedthenifties.png" style={bigButtonStyle} onClick={()=>{
-            tx(contracts.Nifties.create())
-          }} />
+          {niftCTA}
         </Scaler>
         <div style={{position:"absolute",right:80,top:126}}>
           ( {niftiesCount} )
@@ -201,14 +239,13 @@ class App extends Component {
     )
 
 
-
     let nftieDisplayCount = 0
     let allNfties = this.state.nfties.map((token)=>{
 
       if(token._id && nftieDisplayCount++<TOKENDISPLAYLIMIT){
         let thisImage = "tokens/nfties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+"-"+token._extra+".png";
         return (
-          <div key={"nftieToken"+token._id}>
+          <div key={"nftieToken"+nftieDisplayCount}>
             <div style={{position:'absolute',right:0,bottom:40}}>
               <Blockies
                 seed={token._owner.toLowerCase()}
@@ -225,12 +262,26 @@ class App extends Component {
     if(this.state.nfties){
       nftiesCount = this.state.nfties.length
     }
+
+    let nftCTA = ""
+    if(nft){
+      nftCTA = (
+        <img src="feedthenfties.png" style={bigButtonStyle} onClick={()=>{
+          tx(contracts.Nfties.create())
+        }} />
+      )
+    }else{
+      nftCTA = (
+        <img src="noeyeinnfties.png" style={bigButtonStyle} onClick={()=>{
+          window.location = "http://nfties.io"
+        }} />
+      )
+    }
+
     let rightCol = (
       <div>
         <Scaler config={{origin:"center top",adjustedZoom:1.4}}>
-          <img src="feedthenfties.png" style={bigButtonStyle} onClick={()=>{
-            tx(contracts.Nfties.create())
-          }} />
+          {nftCTA}
         </Scaler>
         <div style={{position:"absolute",right:80,top:126}}>
           ( {nftiesCount} )
@@ -241,6 +292,24 @@ class App extends Component {
       </div>
     )
 
+    let grid = ""
+
+    if(nft){
+      grid = (
+        <StackGrid columnWidth={"50%"}>
+          <div key="rightCol" className={"col"}>{rightCol}</div>
+          <div key="leftCol" className={"col"}>{leftCol}</div>
+        </StackGrid>
+      )
+    }else{
+      grid = (
+        <StackGrid columnWidth={"50%"}>
+          <div key="leftCol" className={"col"}>{leftCol}</div>
+          <div key="rightCol" className={"col"}>{rightCol}</div>
+        </StackGrid>
+      )
+    }
+
 
     return (
       <div className="App">
@@ -249,10 +318,7 @@ class App extends Component {
         {events}
         {title}
         {inventory}
-        <StackGrid columnWidth={"50%"}>
-          <div key="leftCol" className={"col"}>{leftCol}</div>
-          <div key="rightCol" className={"col"}>{rightCol}</div>
-        </StackGrid>
+        {grid}
       </div>
     );
   }

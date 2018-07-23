@@ -444,7 +444,7 @@ Now when I visit nfties.io it brings me to the right page, I just have to detect
 ![nftiesio.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/nftiesio.png)
 
 
-### 4:?? - Detect Domains and Display Correctly
+### 5:00 PM - Detect Domains and Display Correctly
 
 Here is an example of how I'm detecting the hostname and swapping out the display:
 
@@ -456,3 +456,7 @@ if(window.location.hostname=="nfties.io"){
 ```
 
 Now I just have to do that all over the page... hold my beer.
+
+While I was doing that I also tweaked the inventory display to offset based on the screen width. Now, no matter how many times you vote and create new monsters, they will show up next to the tweet button and fit.
+
+I think I have all the buttons working except the Twitter button and I'll save that for last. Wooooooo!
