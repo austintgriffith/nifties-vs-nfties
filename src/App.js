@@ -174,9 +174,9 @@ class App extends Component {
       }
     })
 
-    let nifitiesCount = 0
+    let niftiesCount = 0
     if(this.state.nifties){
-      nifitiesCount = this.state.nifties.length
+      niftiesCount = this.state.nifties.length
     }
     let leftCol = (
       <div>
@@ -186,7 +186,7 @@ class App extends Component {
           }} />
         </Scaler>
         <div style={{position:"absolute",right:101,top:86}}>
-          ( {nifitiesCount} )
+          ( {niftiesCount} )
         </div>
         <StackGrid columnWidth={93}>
           {allNifties}
@@ -194,20 +194,42 @@ class App extends Component {
       </div>
     )
 
+
+
+    let nftieDisplayCount = 0
+    let allNfties = this.state.nfties.map((token)=>{
+      while(nftieDisplayCount++<TOKENDISPLAYLIMIT){
+        let thisImage = "tokens/nfties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+"-"+token._extra+".png";
+        return (
+          <div key={"nftieToken"+token._id}>
+            <div style={{position:'absolute',right:0,bottom:40}}>
+              <Blockies
+                seed={token._owner.toLowerCase()}
+                scale={2}
+              />
+            </div>
+            <img src={thisImage} style={niftiesStyle}/>
+          </div>
+        )
+      }
+    })
+
+    let nftiesCount = 0
+    if(this.state.nfties){
+      nftiesCount = this.state.nfties.length
+    }
     let rightCol = (
       <div>
         <Scaler config={{origin:"center top",adjustedZoom:1.4}}>
-          <img src="noeyeinnfties.png" style={bigButtonStyle}/>
+          <img src="feedthenfties.png" style={bigButtonStyle} onClick={()=>{
+            tx(contracts.Nfties.create())
+          }} />
         </Scaler>
+        <div style={{position:"absolute",right:101,top:86}}>
+          ( {nftiesCount} )
+        </div>
         <StackGrid columnWidth={93}>
-          <div key="key1"><img src={"tokens/nfties-5-3-3-2-3.png"} style={niftiesStyle}/></div>
-          <div key="key2"><img src={"tokens/nfties-2-1-3-1-2.png"} style={niftiesStyle}/></div>
-          <div key="key3"><img src={"tokens/nfties-5-2-4-2-1.png"} style={niftiesStyle}/></div>
-          <div key="key4"><img src={"tokens/nfties-2-2-3-3-1.png"} style={niftiesStyle}/></div>
-          <div key="key5"><img src={"tokens/nfties-5-5-3-2-2.png"} style={niftiesStyle}/></div>
-          <div key="key6"><img src={"tokens/nfties-2-4-3-2-5.png"} style={niftiesStyle}/></div>
-          <div key="key7"><img src={"tokens/nfties-5-3-4-2-4.png"} style={niftiesStyle}/></div>
-          <div key="key8"><img src={"tokens/nfties-2-5-3-1-2.png"} style={niftiesStyle}/></div>
+          {allNfties}
         </StackGrid>
       </div>
     )
