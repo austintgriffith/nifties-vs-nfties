@@ -4,7 +4,7 @@
 
 ![nifties vs nfties](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/niftiesvsnfties.png)
 
-I'm not able to attend the [NIFTY hackathon in Hong Kong](https://www.nifty.gg/), but I love to #BUIDL with NFTs so I decided to take the day off work to make a fun little project based around this poll about 👁️'s in Nifties:
+I'm not able to attend the [NIFTY hackathon in Hong Kong](https://www.nifty.gg/), but I love to **#BUIDL** with NFTs so I decided to take the day off work to make a fun little project based around this poll about 👁️'s in Nifties:
 
 ![the great poll begins](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/thegreatpoll.png)
 
@@ -14,7 +14,7 @@ Other than the rule about physically being there, I will follow all of their [ha
 
 ### 9:30 AM - Create React App
 
-To prepare the repo with the correct directory structure, I'll use create react app to kick off the #BUIDL:
+To prepare the repo with the correct directory structure, I'll use **create react app** to kick off the #BUIDL:
 
 ```
 git clone https://github.com/austintgriffith/nifties-vs-nfties
@@ -26,7 +26,7 @@ npm i
 
 ### 10:00 AM - Uploaded Assets
 
-I created the Nifties vs Nfties monsters by drawing each different piece in a different layer in Photoshop. Then, I exported each layer using [this tool](https://github.com/jwa107/Photoshop-Export-Layers-to-Files-Fast). Finally, I built [a node script](https://gist.github.com/austintgriffith/e79373979f8d47b23656464942668177) that composes all the different layers in all the different combinations to produce the static assets.
+I created the **Nifties** vs **Nfties** monsters by drawing each different piece in a different layer in Photoshop. Then, I exported each layer using [this tool](https://github.com/jwa107/Photoshop-Export-Layers-to-Files-Fast). Finally, I built [a node script](https://gist.github.com/austintgriffith/e79373979f8d47b23656464942668177) that composes all the different layers in all the different combinations to produce the static assets.
 
 Each token consists of a different head, body, mouth, feet, etc... I wanted to make them static assets and not dynamically generate them each time. This allows me to upload them to IPFS or a similar service and not have any traditional backend.
 
@@ -45,7 +45,7 @@ I also like to strip CRA down to just the basics and get a little cleaner [App.c
 
 ### 10:50 AM - Clevis & Zeppelin
 
-I have my own blockchain orchestration tool called Clevis that is similar to Truffle. Building it helped me understand a lot of the underlying mechanics work so I stick to using it instead of switching to Truffle, but they can work harmoniously together if needed. Learn more about clevis here: https://github.com/austintgriffith/clevis
+I have my own blockchain orchestration tool called **Clevis** that is similar to Truffle. Building it helped me understand a lot of the underlying mechanics work so I stick to using it instead of switching to Truffle, but they can work harmoniously together if needed. Learn more about clevis here: https://github.com/austintgriffith/clevis
 
 ```
 clevis init
@@ -59,7 +59,7 @@ git clone https://github.com/OpenZeppelin/openzeppelin-solidity.git
 
 ### 12:10 PM - Write Nifties and Nfties Smart Contracts
 
-The smart contracts will be fairly simple. We will want to extend the fantastic work by OpenZeppelin to create our own ERC-721s with metadata for the different parts of the NFT monsters:
+The smart contracts will be fairly simple. We will want to extend the fantastic work by **OpenZeppelin** to create our own ERC-721s with metadata for the different parts of the NFT monsters:
 
 ```
 struct Token{
@@ -85,7 +85,7 @@ uint8 extra = (uint8(sudoRandomButTotallyPredictable[4])%5)+1;
 
 Obviously, if this was somehow tied to real money it would be a very bad idea to generate randomness on-chian. I wrote an article that explains that more here: https://medium.com/coinmonks/is-block-blockhash-block-number-1-okay-14a28e40cc4b
 
-It will take me a bit to write these smart contracts. I'll used Clevis to create, compile, deploy, and publish these contracts into my app after firing up a local testrpc:
+It will take me a bit to write these smart contracts. I'll used **Clevis** to create, compile, deploy, and publish these contracts into my app after firing up a local testrpc:
 
 ```
 ganache-cli
@@ -161,28 +161,28 @@ clevis contract get Nfties 0
 
 It looks good. Damn, these really came together quickly. Big thanks to OpenZeppelin and the contributors to those well curated contracts. We stand on some pretty impressive shoulders :)
 
-Hacking these contracts up quickly reminded me of whailing away on the contracts for my game Cryptogs.io in the hotel room at #EthDenver. Here is one of the more interesting commits from that night: https://github.com/austintgriffith/cryptogs/commit/4cada47cbb18a8a27221b10b38ccb98ad80f5006
+Hacking these contracts up quickly reminded me of whailing away on the contracts for my game **Cryptogs.io** in the hotel room at **#EthDenver**. Here is one of the more interesting commits from that night: https://github.com/austintgriffith/cryptogs/commit/4cada47cbb18a8a27221b10b38ccb98ad80f5006
 
 ### 12:45 PM - Dapparat.us: Metamask
 
-After participating in a few hackathons and building out a couple blockchain games, I found that I was reusing a lot of the same React components. Everything from the simple account display to event parsing to transactions UI/UX.
+After participating in a few hackathons and building out a couple blockchain games, I found that I was reusing a lot of the same React components... everything from the simple account display to event parsing to transactions UI/UX.
 
 I wouldn't be able to build this project out so quickly without my NPM package called [Dapparatus](https://www.npmjs.com/package/dapparatus). There will also, no doubt, be some commits to this repo throughout the day too. It is evolving quickly:
 https://github.com/austintgriffith/dapparatus
 
-Let's bring in the package and start building out our frontend to talk to our contracts:
+Let's bring in the **dapparatus** package and start building out our frontend to talk to our contracts:
 
 ```
 npm install --save dapparatus
 ```
 
-In the App.js I'll bring in all the Dapparatus components:
+In the **App.js** I'll bring in all the **Dapparatus** components:
 
 ```
 import { Metamask, Gas, ContractLoader, Transactions, Events, Scaler } from "dapparatus"
 ```
 
-The Metamask object is the first and most important. It watches for the injected web3 provider and ships updates to your main app as blocks, balances, etc change:
+The **Metamask** object is the first and most important. It watches for the injected web3 provider and ships updates to your main app as blocks, balances, etc change:
 
 ```
 <Metamask
@@ -200,3 +200,90 @@ The Metamask object is the first and most important. It watches for the injected
 
 
 This component is also the most configurable and all the options can be found here: https://github.com/austintgriffith/dapparatus/blob/master/src/metamask.js
+
+### 1:30 PM - Dapparat.us: Gas, ContractLoader, Transactions, Events
+
+I'll breeze through the rest of the components as I add them into the **App.js**.  
+
+**Gas** used to be a slider, but gas sliders are so Q1 2018 🤣. I pulled the slider interface out and now I count on the [ethgasstation api](https://ethgasstation.info/json/ethgasAPI.json) to get the gas just right every time.
+
+```
+<Gas
+  onUpdate={(state)=>{
+    console.log("Gas price update:",state)
+    this.setState(state,()=>{
+      console.log("GWEI set:",this.state)
+    })
+  }}
+/>
+```
+
+This will keep our app up-to-date with current gas prices and even apply a small multiplier to make sure our transactions will go through quickly:
+
+```
+Gas price update: {gwei: 3.21}
+```
+
+The **Transactions** component gives us a nice UI down in the corner that shows the blocks being loaded and our transactions with the blockchain:
+
+```
+<Transactions
+  account={account}
+  gwei={gwei}
+  web3={web3}
+  block={block}
+  avgBlockTime={avgBlockTime}
+  etherscan={etherscan}
+  onReady={(state)=>{
+    console.log("Transactions component is ready:",state)
+    this.setState(state)
+  }}
+/>
+```
+
+![blockloader.gif](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/blockloader.gif)
+
+The **ContractLoader** uses the files published by **Clevis** to prepare an interface with the contracts.
+
+```
+<ContractLoader
+  config={{hide:false}}
+  web3={web3}
+  require={path => {return require(`${__dirname}/${path}`)}}
+  onReady={(contracts)=>{
+    console.log("contracts loaded",contracts)
+    this.setState({contracts:contracts})
+  }}
+/>
+```
+
+At first I leave the hide:false so I can see the contracts come in right on the page:
+
+![public/contractscreen.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/contractscreen.png)
+
+The **Events** component is used to follow events from contracts. I will use this to keep a long list of each token created from either contract. I could also use it to list the current user's using a **filter** object, but I'll actually just poll the contract for that later.
+
+```
+<Events
+  contract={contracts.Nifties}
+  eventName={"Create"}
+  block={block}
+  id={"_id"}
+  onUpdate={(eventData,allEvents)=>{
+    console.log("EVENT DATA:",eventData)
+    this.setState({events:allEvents})
+  }}
+/>
+<Events
+  contract={contracts.Nfties}
+  eventName={"Create"}
+  block={block}
+  id={"_id"}
+  onUpdate={(eventData,allEvents)=>{
+    console.log("EVENT DATA:",eventData)
+    this.setState({events:allEvents})
+  }}
+/>
+```
+
+Awesome. Time for more ☕
