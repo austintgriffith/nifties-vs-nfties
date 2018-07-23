@@ -287,3 +287,94 @@ The **Events** component is used to follow events from contracts. I will use thi
 ```
 
 Awesome. Time for more ☕
+
+### 2:30 PM - Mock out the design in React & the Dapparat.us Scaler
+
+Starting with the title image, I will wrap most of my UI with a **Scaler** from the **Dapparatus** library. After building a few blockchain games that must look good on both a desktop machine and mobile wallet like **Trust**, you quickly realized it's a huge pain to make your Dapp responsive. That's where the **Scaler** component comes in. Basically, you can control sizing depending on the screen size dynamically.
+
+```
+<div style={{width:"100%",height:160,backgroundColor:"#282828"}}>
+  <Scaler config={{origin:"50px 50px",adjustedZoom:1.3}}>
+    <img style={{position:"absolute",left:10,top:10,maxHeight:120,margin:10}} src="niftiesvsnfties.png"/>
+  </Scaler>
+</div>
+```
+
+![screenscale.gif](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/screenscale.gif)
+
+The vision I have for the app is that it will be hosted on both nifties.io and nfties.io and depending on what domain you are coming in on you get that respective UI. Nifties.io will mean you are in the yes-eye-in-nifities camp. I'm going to mock out this design first and then build it to be responsive later.
+
+There will be two different calls-to-action; the main one will be to "Feed The Nifties" which will trigger a transaction to the Nifities smart contract and create a new Niftie in your inventory. However, if you think maybe you want to be in the no-eye-in-nfties camp, there is a second button that will take you to nfties.io where you can "Feed The Nfties".
+
+Next I'm going to use a **StackGrid** (https://github.com/tsuyoshiwada/react-stack-grid) to split the page into two columns and then a nested **StackGrid** for each set up monsters. This will make it look really nice on both desktop and mobile browsers.
+
+```
+npm install --save react-stack-grid
+```
+
+```
+<StackGrid columnWidth={"50%"}>
+  <div key="key1" className={"col"}>{leftCol}</div>
+  <div key="key2" className={"col"}>{rightCol}</div>
+</StackGrid>
+```
+
+Each column is then mocked up with a **Scaler** for the button:
+
+```
+<div>
+  <Scaler config={{origin:"center top",adjustedZoom:1.4}}>
+    <img src="feedthenifties.png" style={bigButtonStyle}/>
+  </Scaler>
+  <StackGrid columnWidth={93}>
+    <div key="key1"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
+    <div key="key2"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
+    <div key="key3"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
+    <div key="key4"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
+    <div key="key5"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
+    <div key="key6"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
+    <div key="key7"><img src={"tokens/nifties-5-7-7-2.png"} style={niftiesStyle}/></div>
+    <div key="key8"><img src={"tokens/nifties-2-6-3-6.png"} style={niftiesStyle}/></div>
+  </StackGrid>
+</div>
+```
+
+Man, this is looking really good!
+
+![gridscale.gif](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/gridscale.gif)
+
+Next, when they click the "Feed" button it will eventually make a transaction, but for now I want it to open up an Inventory to show the player what monsters they have collected so far. I'll be using the **react-motion** NPM to make this look good.
+
+```
+npm install --save react-motion
+```
+
+```
+<Motion
+      defaultStyle={{
+        openAmount:0
+      }}
+      style={{
+        openAmount:spring(this.state.openInventory,{ stiffness: 80, damping: 8 })
+      }}
+      >
+      {currentStyles => {
+        return (
+          <div style={{position:"relative",overflow:"hidden",width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
+            <Scaler config={{origin:"right 50px",adjustedZoom:1.2}}>
+              <img src="twitterbutton.png" style={{maxWidth:150,margin:10,float:'right',marginRight:15,cursor:"pointer"}}/>
+            </Scaler>
+            <div style={{position:"absolute",left:20,top:-15}}><img src={"tokens/nifties-2-7-3-4.png"} style={{maxHeight:160}}/></div>
+            <div style={{position:"absolute",left:90,top:-15}}><img src={"tokens/nifties-5-3-6-3.png"} style={{maxHeight:160}}/></div>
+            <div style={{position:"absolute",left:160,top:-15}}><img src={"tokens/nifties-2-4-7-1.png"} style={{maxHeight:160}}/></div>
+            <div style={{position:"absolute",left:230,top:-15}}><img src={"tokens/nifties-1-5-4-2.png"} style={{maxHeight:160}}/></div>
+          </div>
+        )
+      }}
+</Motion>
+```
+
+Since the original Nifties vs Nfties debate was just a Twitter back-and-forth, @mattgcondon suggested that I have a button that will let you post your vote/inventory to Twitter. I *really* like how the Twitter button turned out when I drew it to fit the same theme.
+
+
+![inventory.gif](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/inventory.gif)

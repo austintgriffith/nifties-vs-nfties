@@ -13,3 +13,9 @@ a:visited {
   color:#666666;
   text-decoration: none;
 }
+
+.col {
+  text-align: center;
+  padding: 10px;
+  height: 100%;
+}
