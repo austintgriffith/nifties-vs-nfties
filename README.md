@@ -455,8 +455,37 @@ if(window.location.hostname=="nfties.io"){
 }
 ```
 
-Now I just have to do that all over the page... hold my beer.
+Now I just have to do that all over the page... *hold my beer*.
 
 While I was doing that I also tweaked the inventory display to offset based on the screen width. Now, no matter how many times you vote and create new monsters, they will show up next to the tweet button and fit.
 
 I think I have all the buttons working except the Twitter button and I'll save that for last. Wooooooo!
+
+### 5:45 - Deploy Content to AWS
+
+One neat thing about having the blockchain as your backend is your code is all static. It can be served out of CloudFront, S3, IPFS, you name it. Someone could even just pull down your repo and run it locally.
+
+The next phase of the **#buidl** is to get a deployment pipeline working. That will mean creating a few things in the AWS console.
+
+First, I created two new **AWS S3** buckets with the same name as the domain I wanted to host: **nifties.io** and **nfties.io**.
+
+Then, for each bucket I setup "Static website hosting".
+
+Now, I need to deploy my code to S3. I already have a deployment script I use for Cryptogs.io and Galleass.io so no need to reinvent the wheel. I'll copy that in and set it up to run for both Nifties.io and Nfties.io and fire it off. [Here is the script I used.](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/deployNifties.js)
+
+Because I'm uploading a shart load of assets, I have some downtime to work on getting **Cloudfront** and **SSL** in front of these domains. First, I'll use AWS ACM to create SSL certificates for both domains. Because I have the domains registered in AWS Route53, Amazon does all the DNS validation for me, I just click through the dialogs.
+
+*Note: Make sure you get your ACM certificates in the same region as your S3 bucket*
+
+Next, I jump over to the CloudFront panel and create distributions for the S3 buckets.
+
+```
+Origin Domain Name: nifties.io.s3-website-us-east-1.amazonaws.com
+Viewer Protocol Policy: Redirect HTTP to HTTPS
+CNAMEs: nifties.io -> Custom SSL Certificate
+Default Root Object: index.html
+```
+
+(I had to manually paste in the ARN for my SSL certificate but I'm going as fast as I can here and AWS must have a cache in from of the list.)
+
+This will take a long dang time. At this point my deploy to nifties.io is finished and I'm currently moving files to nfties.io. I'm going to keep hacking locally to make some finishing touches, preparing for mainnet!
