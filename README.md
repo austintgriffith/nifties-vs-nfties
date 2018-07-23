@@ -442,3 +442,17 @@ Now when I visit nfties.io it brings me to the right page, I just have to detect
 
 
 ![nftiesio.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/nftiesio.png)
+
+
+### 4:?? - Detect Domains and Display Correctly
+
+Here is an example of how I'm detecting the hostname and swapping out the display:
+
+```
+let titleImage = "niftiesvsnfties.png"
+if(window.location.hostname=="nfties.io"){
+  titleImage = "nftiesvsnifties.png"
+}
+```
+
+Now I just have to do that all over the page... hold my beer.

@@ -106,10 +106,15 @@ class App extends Component {
       }
     }
 
+    let titleImage = "niftiesvsnfties.png"
+    if(window.location.hostname=="nfties.io"){
+      titleImage = "nftiesvsnifties.png"
+    }
+
     let title = (
       <div style={{width:"100%",height:160,backgroundColor:"#282828"}}>
         <Scaler config={{origin:"50px 50px",adjustedZoom:1.3}}>
-          <img style={{position:"absolute",left:10,top:10,maxHeight:120,margin:10}} src="niftiesvsnfties.png"/>
+          <img style={{position:"absolute",left:10,top:10,maxHeight:120,margin:10}} src={titleImage}/>
         </Scaler>
       </div>
     )
@@ -158,7 +163,8 @@ class App extends Component {
 
     let niftieDisplayCount = 0
     let allNifties = this.state.nifties.map((token)=>{
-      while(niftieDisplayCount++<TOKENDISPLAYLIMIT){
+      if(token._id && niftieDisplayCount++<TOKENDISPLAYLIMIT){
+        console.log("DISPLAY",token)
         let thisImage = "tokens/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
         return (
           <div key={"niftieToken"+token._id}>
@@ -185,7 +191,7 @@ class App extends Component {
             tx(contracts.Nifties.create())
           }} />
         </Scaler>
-        <div style={{position:"absolute",right:101,top:86}}>
+        <div style={{position:"absolute",right:80,top:126}}>
           ( {niftiesCount} )
         </div>
         <StackGrid columnWidth={93}>
@@ -198,7 +204,8 @@ class App extends Component {
 
     let nftieDisplayCount = 0
     let allNfties = this.state.nfties.map((token)=>{
-      while(nftieDisplayCount++<TOKENDISPLAYLIMIT){
+
+      if(token._id && nftieDisplayCount++<TOKENDISPLAYLIMIT){
         let thisImage = "tokens/nfties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+"-"+token._extra+".png";
         return (
           <div key={"nftieToken"+token._id}>
@@ -225,7 +232,7 @@ class App extends Component {
             tx(contracts.Nfties.create())
           }} />
         </Scaler>
-        <div style={{position:"absolute",right:101,top:86}}>
+        <div style={{position:"absolute",right:80,top:126}}>
           ( {nftiesCount} )
         </div>
         <StackGrid columnWidth={93}>

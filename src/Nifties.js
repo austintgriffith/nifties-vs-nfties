@@ -48,6 +48,12 @@ class Nifties extends Component {
     let tokensOfOwnerDisplay = "loading tokens..."
     if(tokensOfOwner){
       let offset = -60
+      let totalCanDisplay = ((document.documentElement.clientWidth-140)/80)
+
+      if(tokensOfOwner.length>totalCanDisplay){
+        offset -= (tokensOfOwner.length-(totalCanDisplay-1))*80
+      }
+
       tokensOfOwnerDisplay = tokensOfOwner.map((token)=>{
         let thisImage = "tokens/nifties-"+token.body+"-"+token.feet+"-"+token.head+"-"+token.mouth+".png";
         //console.log("As a sanity check, make sure "+thisImage+" and "+token.uri+" match")
