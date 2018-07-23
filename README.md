@@ -159,6 +159,44 @@ clevis contract create NFties 2
 clevis contract get Nfties 0
 ```
 
-It looks good. Damn these really came together quickly. Big thanks to OpenZeppelin and the contributors to those well curated contracts. We stand on some pretty impressive shoulders :)
+It looks good. Damn, these really came together quickly. Big thanks to OpenZeppelin and the contributors to those well curated contracts. We stand on some pretty impressive shoulders :)
 
 Hacking these contracts up quickly reminded me of whailing away on the contracts for my game Cryptogs.io in the hotel room at #EthDenver. Here is one of the more interesting commits from that night: https://github.com/austintgriffith/cryptogs/commit/4cada47cbb18a8a27221b10b38ccb98ad80f5006
+
+### 12:45 PM - Dapparat.us: Metamask
+
+After participating in a few hackathons and building out a couple blockchain games, I found that I was reusing a lot of the same React components. Everything from the simple account display to event parsing to transactions UI/UX.
+
+I wouldn't be able to build this project out so quickly without my NPM package called [Dapparatus](https://www.npmjs.com/package/dapparatus). There will also, no doubt, be some commits to this repo throughout the day too. It is evolving quickly:
+https://github.com/austintgriffith/dapparatus
+
+Let's bring in the package and start building out our frontend to talk to our contracts:
+
+```
+npm install --save dapparatus
+```
+
+In the App.js I'll bring in all the Dapparatus components:
+
+```
+import { Metamask, Gas, ContractLoader, Transactions, Events, Scaler } from "dapparatus"
+```
+
+The Metamask object is the first and most important. It watches for the injected web3 provider and ships updates to your main app as blocks, balances, etc change:
+
+```
+<Metamask
+  onUpdate={(state)=>{
+    console.log("metamask state update:",state)
+    if(state.web3Provider) {
+      state.web3 = new Web3(state.web3Provider)
+      this.setState(state)
+    }
+  }}
+/>
+```
+
+![metamask.gif](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/metamask.gif)
+
+
+This component is also the most configurable and all the options can be found here: https://github.com/austintgriffith/dapparatus/blob/master/src/metamask.js
