@@ -36,7 +36,7 @@ Here is an example token *nfties-5-4-5-3-5.png* (body 5, feet 4, head 5, mouth 3
 
 *Note: these files are too big. I already started the upload because I'm moving fast on this, but I will want to do a second pass and shrink these to about 25% their current size.*
 
-### 10: AM - Carve out service worker & clean up CRA
+### 10:45 AM - Carve out service worker & clean up CRA
 
 One of the first things I do when building a Dapp is carve out the service worker from [index.js](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/index.js) because of issues you end up having down the road with web3, ssl, and android:
 https://medium.com/coinmonks/react-service-worker-web3-android-98970a6691ad
