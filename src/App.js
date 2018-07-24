@@ -207,7 +207,7 @@ class App extends Component {
 
     let niftieDisplayCount = 0
     let niftiesObject = this.state.nifties
-    if(!niftiesObject) niftiesObject = this.state.cachednifties
+    if(this.state.cachednifties && (!niftiesObject || niftiesObject.length<=0)) niftiesObject = this.state.cachednifties
     let allNifties = niftiesObject.map((token)=>{
       if(token._id && niftieDisplayCount++<TOKENDISPLAYLIMIT){
         let thisImage = "tokens/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
@@ -260,7 +260,7 @@ class App extends Component {
 
     let nftieDisplayCount = 0
     let nftiesObject = this.state.nfties
-    if(!nftiesObject) nftiesObject = this.state.cachednfties
+    if(this.state.cachednfties && (!nftiesObject || nftiesObject.length<=0 )) nftiesObject = this.state.cachednfties
     let allNfties = nftiesObject.map((token)=>{
 
       if(token._id && nftieDisplayCount++<TOKENDISPLAYLIMIT){
