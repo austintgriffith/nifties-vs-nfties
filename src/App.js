@@ -237,7 +237,12 @@ class App extends Component {
     if(!nft){
       niftCTA = (
         <img src="feedthenifties.png" style={bigButtonStyle} onClick={()=>{
-          tx(contracts.Nifties.create())
+          if(contracts){
+            tx(contracts.Nifties.create())
+          }else{
+            alert('Please use Mobile Wallet or Metamask to Play')
+          }
+
         }} />
       )
     }else{
@@ -295,7 +300,11 @@ class App extends Component {
     if(nft){
       nftCTA = (
         <img src="feedthenfties.png" style={bigButtonStyle} onClick={()=>{
-          tx(contracts.Nfties.create())
+          if(contracts){
+            tx(contracts.Nfties.create())
+          }else{
+            alert('Please use Mobile Wallet or Metamask to Play')
+          }
         }} />
       )
     }else{
