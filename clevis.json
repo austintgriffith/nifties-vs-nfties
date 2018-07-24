@@ -1,7 +1,7 @@
 {
   "provider": "http://localhost:8545",
-  "gasprice": 3.5,
-  "ethprice": 458.801,
+  "gasprice": 2,
+  "ethprice": 451.298,
   "deploygas": 5500000,
   "xfergas": 1300000,
   "DEBUG": true

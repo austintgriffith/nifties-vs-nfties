@@ -4,6 +4,8 @@ pragma solidity ^0.4.24;
   ERC-721 NIFTY remote hackaton for:
   https://github.com/austintgriffith/nifties-vs-nfties
 
+  Austin Thomas Griffith - https://austingriffith.com
+
   This Token is for the Nfties (no eye in Nfties) monsters
 
   They have the following metadata:
