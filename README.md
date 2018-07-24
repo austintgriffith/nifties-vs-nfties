@@ -590,7 +590,7 @@ npm install --save body-parser
 npm install --save web3
 ```
 
-And the code is here, here, here. (I need to deploy the code before I can link it sorry).
+The main backend code is [here](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/backend/niftiescache.js) and the modules are: [contractLoader](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/backend/modules/contractLoader.js), [eventParser](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/backend/modules/eventParser.js), and [liveParser](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/backend/modules/liveParser.js).
 
 ----
 
