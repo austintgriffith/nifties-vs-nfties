@@ -229,6 +229,10 @@ class App extends Component {
     if(this.state.nifties){
       niftiesCount = this.state.nifties.length
     }
+    if(this.state.cachednifties){
+      niftiesCount = Math.max(niftiesCount,this.state.cachednifties.length)
+    }
+
     let niftCTA = ""
     if(!nft){
       niftCTA = (
@@ -282,6 +286,9 @@ class App extends Component {
     let nftiesCount = 0
     if(this.state.nfties){
       nftiesCount = this.state.nfties.length
+    }
+    if(this.state.cachednfties){
+      nftiesCount = Math.max(nftiesCount,this.state.cachednfties.length)
     }
 
     let nftCTA = ""
