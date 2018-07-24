@@ -624,6 +624,10 @@ let allNifties = niftiesObject.map((token)=>{
 
 And just like that, even when someone visits without any kind of injected web3, the will still get a list of monsters and see who how the votes look:
 
-[![screenwithcaching.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/screenwithcaching.png) https://nifties.io ](https://nifties.io)
+[![screenwithcaching.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/screenwithcaching.png) https://nifties.io (cached without web3)](https://nifties.io)
+
 
 Thanks for following along with the NIFTY hack. If you have any questions or feedback hit me up on [twitter](https://twitter.com/austingriffith). Learn more about me at https://austingriffith.com Thanks!
+
+
+[![screenwithmetamask.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/screenwithmetamask.png) https://nifties.io (with web3 injected)](https://nifties.io)
