@@ -2,6 +2,8 @@
 
 *Should we call ERC-721 tokens Nifties or Nfties? You decide by crafting monsters with or without eyes.*
 
+![nftiesio.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/niftiesvsnftiestitle.jpg)
+
 Visit https://nifties.io or https://nfties.io depending one which one you like best!
 
 ![nifties vs nfties](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/niftiesvsnfties.png)
@@ -520,3 +522,7 @@ clevis deploy Nifties 0
 
 
 [Public & Verified Nifties Token  Contract](https://etherscan.io/address/0xf9b6e3e9ae83dcadd2bdd422fa810ffd34492264#code)
+
+
+
+Visit https://nifties.io or https://nfties.io depending one which one you like best!

@@ -220,7 +220,7 @@ class App extends Component {
     }else{
       niftCTA = (
         <img src="yeseyeinnifties.png" style={bigButtonStyle} onClick={()=>{
-          window.location = "http://nifties.io"
+          window.location = "https://nifties.io"
         }} />
       )
     }
@@ -273,7 +273,7 @@ class App extends Component {
     }else{
       nftCTA = (
         <img src="noeyeinnfties.png" style={bigButtonStyle} onClick={()=>{
-          window.location = "http://nfties.io"
+          window.location = "https://nfties.io"
         }} />
       )
     }

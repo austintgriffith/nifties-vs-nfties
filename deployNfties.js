@@ -60,7 +60,7 @@ console.log("npm run build")
         console.log("progress", uploader.progressAmount, uploader.progressTotal);
       });
       uploader.on('end', function() {
-        console.log("done uploading nifties.io");
+        console.log("done uploading nfties.io");
 
 
 
