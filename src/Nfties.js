@@ -69,7 +69,9 @@ class Nfties extends Component {
     return (
       <div>
         <Scaler config={{origin:"right 50px",adjustedZoom:1.2}}>
-          <img src="twitterbutton.png" style={{zIndex:128,maxWidth:150,margin:10,float:'right',marginRight:15,cursor:"pointer"}}/>
+        <a href={"https://twitter.com/intent/tweet?text="+encodeURI("I minted "+tokensOfOwner.length+" NFTIES to vote, \"No 👁️ in https://nfties.io\"")+"&hashtags=nifties-vs-nfties"} >
+          <img src="twitterbutton.png" style={{zIndex:128,maxWidth:150,margin:10,float:'right',marginRight:15,cursor:"pointer"}} />
+        </a>
         </Scaler>
         {tokensOfOwnerDisplay}
       </div>

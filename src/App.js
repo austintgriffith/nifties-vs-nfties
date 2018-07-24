@@ -310,6 +310,23 @@ class App extends Component {
       )
     }
 
+    let footer = (
+      <div style={{position:"fixed",bottom:0,left:0,width:"100%",zIndex:90,height:60}}>
+          <div style={{position:"absolute",left:0,top:0,width:"100%",height:100,backgroundColor:"#FFFFFF",opacity:0.1}}></div>
+          <StackGrid columnWidth={"50%"}>
+          <div>
+            <Scaler config={{origin:"left bottom"}}>
+              <a href="https://austingriffith.com"><img src="madewitheyebyaustingriffith.png" style={{maxHeight:60,marginTop:-4,cursor:"pointer"}}/></a>
+            </Scaler>
+          </div>
+          <div>
+            <Scaler config={{origin:"left bottom"}}>
+              <a href="https://github.com/austintgriffith/nifties-vs-nfties"><img src="wtfisthis.png" style={{maxHeight:50,cursor:"pointer"}}/></a>
+            </Scaler>
+          </div>
+          </StackGrid>
+        </div>
+    )
 
     return (
       <div className="App">
@@ -319,6 +336,7 @@ class App extends Component {
         {title}
         {inventory}
         {grid}
+        {footer}
       </div>
     );
   }

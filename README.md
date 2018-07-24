@@ -2,6 +2,8 @@
 
 *Should we call ERC-721 tokens Nifties or Nfties? You decide by crafting monsters with or without eyes.*
 
+Visit https://nifties.io or https://nfties.io depending one which one you like best!
+
 ![nifties vs nfties](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/niftiesvsnfties.png)
 
 I'm not able to attend the [NIFTY hackathon in Hong Kong](https://www.nifty.gg/), but I love to **#BUIDL** with NFTs so I decided to take the day off work to make a fun little project based around this poll about 👁️'s in Nifties:
@@ -461,7 +463,7 @@ While I was doing that I also tweaked the inventory display to offset based on t
 
 I think I have all the buttons working except the Twitter button and I'll save that for last. Wooooooo!
 
-### 5:45 - Deploy Content to AWS
+### 5:45 PM - Deploy Content to AWS
 
 One neat thing about having the blockchain as your backend is your code is all static. It can be served out of CloudFront, S3, IPFS, you name it. Someone could even just pull down your repo and run it locally.
 
@@ -488,4 +490,33 @@ Default Root Object: index.html
 
 (I had to manually paste in the ARN for my SSL certificate but I'm going as fast as I can here and AWS must have a cache in from of the list.)
 
+I also have to point the DNS in **Route53** to point to the **CloudFront** distributions.
+
 This will take a long dang time. At this point my deploy to nifties.io is finished and I'm currently moving files to nfties.io. I'm going to keep hacking locally to make some finishing touches, preparing for mainnet!
+
+### 6:45 PM Finishing Touches & Mainnet Contract Deployment !!!
+
+I added a footer to the site that directs confused visitors back to this **ReadME** to explain what's going on because let's be honest, this was a really weird project.
+
+Next, I setup the twitter button to take the client to a page that allows them to **Tweet** their vote.
+
+Now it's time to deploy these tokens to the **Mainnet**... *Hold on to your butts*!
+
+```
+clevis compile Nfties
+clevis deploy Nfties 0
+```
+
+[View Deployment Trasaction on Etherscan](https://etherscan.io/tx/0x0ee4760b2dd286ce6b443ac25b2b2e2dcc09e7efc80ff49448d8678de3429a31) (It cost me $1.83. I love this technology so much.)
+
+[Public & Verified Nfties Token  Contract](https://etherscan.io/address/0x4646Dea7e251fefd74e3FAC63c63BE6e6Efc721c#code)
+
+```
+clevis compile Nifties
+clevis deploy Nifties 0
+```
+
+[View Deployment Trasaction on Etherscan](https://etherscan.io/tx/0x6ea6f5b478605decfc02264736e460ebefc41affad5a5e816b09dd5236e00532)
+
+
+[Public & Verified Nifties Token  Contract](https://etherscan.io/address/0xf9b6e3e9ae83dcadd2bdd422fa810ffd34492264#code)
