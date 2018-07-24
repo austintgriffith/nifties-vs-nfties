@@ -6,6 +6,7 @@ import Web3 from 'web3';
 import Nifties from './Nifties.js';
 import Nfties from './Nfties.js';
 import StackGrid from "react-stack-grid";
+import axios from 'axios';
 
 import './App.css';
 
@@ -29,6 +30,22 @@ class App extends Component {
     setTimeout(()=>{this.forceUpdate()},1000)
     setTimeout(()=>{this.forceUpdate()},3000)
     setTimeout(()=>{this.forceUpdate()},9000)
+    setInterval(()=>{
+      this.loadCachedData()
+    },15000)
+    this.loadCachedData()
+  }
+  loadCachedData(){
+    if(!this.state.web3 || !this.state.contracts){
+      console.log("No local web3, load data from a centralized cache :(")
+      axios.get('https://cache.nifties.io/')
+      .then((response)=>{
+        this.setState(response.data);
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
+    }
   }
   render() {
     let {web3,account,contracts,tx,gwei,block,avgBlockTime,etherscan} = this.state
@@ -189,7 +206,9 @@ class App extends Component {
     }
 
     let niftieDisplayCount = 0
-    let allNifties = this.state.nifties.map((token)=>{
+    let niftiesObject = this.state.nifties
+    if(!niftiesObject) niftiesObject = this.state.cachednifties
+    let allNifties = niftiesObject.map((token)=>{
       if(token._id && niftieDisplayCount++<TOKENDISPLAYLIMIT){
         let thisImage = "tokens/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
         return (
@@ -240,7 +259,9 @@ class App extends Component {
 
 
     let nftieDisplayCount = 0
-    let allNfties = this.state.nfties.map((token)=>{
+    let nftiesObject = this.state.nfties
+    if(!nftiesObject) nftiesObject = this.state.cachednfties
+    let allNfties = nftiesObject.map((token)=>{
 
       if(token._id && nftieDisplayCount++<TOKENDISPLAYLIMIT){
         let thisImage = "tokens/nfties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+"-"+token._extra+".png";

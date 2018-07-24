@@ -25,6 +25,7 @@ npx create-react-app .
 npm i
 ```
 
+---
 
 ### 10:00 AM - Uploaded Assets
 
@@ -38,12 +39,16 @@ Here is an example token *nfties-5-4-5-3-5.png* (body 5, feet 4, head 5, mouth 3
 
 *Note: these files are too big. I already started the upload because I'm moving fast on this, but I will want to do a second pass and shrink these to about 25% their current size.*
 
+---
+
 ### 10:45 AM - Carve out service worker & clean up CRA
 
 One of the first things I do when building a Dapp is carve out the service worker from [index.js](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/index.js) because of issues you end up having down the road with web3, ssl, and android:
 https://medium.com/coinmonks/react-service-worker-web3-android-98970a6691ad
 
 I also like to strip CRA down to just the basics and get a little cleaner [App.css](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/App.css) file ready. Plus getting the favicon looking right and add in the SEO junk.
+
+---
 
 ### 10:50 AM - Clevis & Zeppelin
 
@@ -58,6 +63,9 @@ We are also going to need OpenZeppelin's wonderful library of contracts to exten
 ```
 git clone https://github.com/OpenZeppelin/openzeppelin-solidity.git
 ```
+
+
+---
 
 ### 12:10 PM - Write Nifties and Nfties Smart Contracts
 
@@ -165,6 +173,9 @@ It looks good. Damn, these really came together quickly. Big thanks to OpenZeppe
 
 Hacking these contracts up quickly reminded me of whailing away on the contracts for my game **Cryptogs.io** in the hotel room at **#EthDenver**. Here is one of the more interesting commits from that night: https://github.com/austintgriffith/cryptogs/commit/4cada47cbb18a8a27221b10b38ccb98ad80f5006
 
+---
+
+
 ### 12:45 PM - Dapparat.us: Metamask
 
 After participating in a few hackathons and building out a couple blockchain games, I found that I was reusing a lot of the same React components... everything from the simple account display to event parsing to transactions UI/UX.
@@ -202,6 +213,8 @@ The **Metamask** object is the first and most important. It watches for the inje
 
 
 This component is also the most configurable and all the options can be found here: https://github.com/austintgriffith/dapparatus/blob/master/src/metamask.js
+
+---
 
 ### 1:30 PM - Dapparat.us: Gas, ContractLoader, Transactions, Events
 
@@ -287,6 +300,9 @@ The **Events** component is used to follow events from contracts. I will use thi
 ```
 
 Awesome. Time for more ☕
+
+
+---
 
 ### 2:30 PM - Mock out the design in React & the Dapparat.us Scaler
 
@@ -379,6 +395,7 @@ Since the original Nifties vs Nfties debate was just a Twitter back-and-forth, @
 
 ![inventory.gif](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/inventory.gif)
 
+---
 
 ### 3:15 PM - Interacting with the Smart Contracts - Wiring up Buttons
 
@@ -399,6 +416,8 @@ And then we want the "Feed The Nifties" button to trigger the create function of
 ```
 
 Check out the code for the the [Nifties.js component here](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/Nifties.js).
+
+---
 
 ### 3:45 PM - Parse Create Events and Display Tokens
 
@@ -431,6 +450,8 @@ let allNifties = this.state.nifties.map((token)=>{
 })
 ```
 
+---
+
 ### 4:00 PM - Run React on Port 80 - Hostname nfties.io vs nifties.io
 
 Okay most of the functionality is working for the Nifities. As I mentioned earlier, I'd like to run this thing on two different domains because I bought both nfties.io and nifties.io in a crime of passion. Do you do that too? I own so many stupid domains. Anyways, I'm going to run the server on port 80 and then use my /etc/hosts to point both nfties.io vs nifties.io localhost. Then, I can have my source code detect what domain you are on and display it correctly.
@@ -445,6 +466,7 @@ Now when I visit nfties.io it brings me to the right page, I just have to detect
 
 ![nftiesio.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/nftiesio.png)
 
+---
 
 ### 5:00 PM - Detect Domains and Display Correctly
 
@@ -462,6 +484,8 @@ Now I just have to do that all over the page... *hold my beer*.
 While I was doing that I also tweaked the inventory display to offset based on the screen width. Now, no matter how many times you vote and create new monsters, they will show up next to the tweet button and fit.
 
 I think I have all the buttons working except the Twitter button and I'll save that for last. Wooooooo!
+
+---
 
 ### 5:45 PM - Deploy Content to AWS
 
@@ -494,6 +518,8 @@ I also have to point the DNS in **Route53** to point to the **CloudFront** distr
 
 This will take a long dang time. At this point my deploy to nifties.io is finished and I'm currently moving files to nfties.io. I'm going to keep hacking locally to make some finishing touches, preparing for mainnet!
 
+---
+
 ### 6:45 PM Finishing Touches & Mainnet Contract Deployment !!!
 
 I added a footer to the site that directs confused visitors back to this **ReadME** to explain what's going on because let's be honest, this was a really weird project.
@@ -524,3 +550,80 @@ clevis deploy Nifties 0
 
 
 Visit https://nifties.io or https://nfties.io depending one which one you like best!
+
+---
+
+### 5:30 AM -- [Centralization](#centralization) - or how I stopped worrying about blockchain and learned to love user experience
+
+Well the title says it all. When you build out an awesome Dapp on Ethereum, you find out that not very many people out there want to have Metamask logged in and running.
+
+You see that Twitter will bring curious people in to look at your app, but they will be presented with a data-less wall of uncertainty without having a mobile Wallet connected to Ethereum.
+
+The next step, my friends, is to embrace just a little bit of centralization. I wrote a really weird article about this here: https://medium.com/coinmonks/cryptogs-io-putting-the-d-in-dapp-b7e40ca594dd
+
+Technically, for the NIFTY hackathon, I said I would follow the rules and I'm still within my 24 hour window so I'm going to try to hack up a backend just to show how it all works.
+
+The first step is to spin up a tiny EC2 instance. This is where your costs will start to incur. Next, an ELB in front of that with an ACM SSL certificate. I chose use the domain: https://cache.nifties.io
+
+It's not scalable, it's exposed, and susceptible to classic web2 hacks, but that's the cold hard truth Dapp developers face when users won't inject their own web3.
+
+My backend server is very simple; it has a single GET endpoint that serves up all the NIFTIES and NFTIES data:
+
+```
+app.get('/', (req, res) => {
+  console.log("/")
+  res.set('Content-Type', 'application/json');
+  res.end(JSON.stringify({Nifties:Nifties,Nfties:Nfties}));
+});
+```
+
+To get the data, I'm using an event parser similar to the Dapparatus component and web3 to run down the chain of a local instance of Geth. You can learn more about setting up Geth from this post: https://medium.com/coinmonks/going-fully-decentralized-on-the-cheap-33e6e718131a
+
+The whole backend setup went like this:
+```
+mkdir nifties-backend
+cd nifties-backend
+npm init
+npm install --save express
+npm install --save helmet
+npm install --save body-parser
+npm install --save web3
+```
+
+And the code is here, here, here. (I need to deploy the code before I can link it sorry).
+
+----
+
+On the frontend, I'll install Axios:
+```
+npm install --save axios
+```
+
+You can pulled the cached data using:
+```
+loadCachedData(){
+  if(!this.state.web3 || !this.state.contracts){
+    console.log("No local web3, load data from a centralized cache :(")
+    axios.get('https://cache.nifties.io/')
+    .then((response)=>{
+      this.setState(response.data);
+    })
+    .catch((error)=>{
+      console.log(error);
+    });
+  }
+}
+```
+
+Then you can switch out your cached data when the real blockchain data arrives with:
+```
+let niftiesObject = this.state.nifties
+if(!niftiesObject) niftiesObject = this.state.cachednifties
+let allNifties = niftiesObject.map((token)=>{
+```
+
+And just like that, even when someone visits without any kind of injected web3, the will still get a list of monsters and see who how the votes look:
+
+[![screenwithcaching.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/screenwithcaching.png) https://nifties.io ](https://nifties.io)
+
+Thanks for following along with the NIFTY hack. If you have any questions or feedback hit me up on [twitter](https://twitter.com/austingriffith). Learn more about me at https://austingriffith.com Thanks!
