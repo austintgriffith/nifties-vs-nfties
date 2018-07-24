@@ -473,7 +473,7 @@ First, I created two new **AWS S3** buckets with the same name as the domain I w
 
 Then, for each bucket I setup "Static website hosting".
 
-Now, I need to deploy my code to S3. I already have a deployment script I use for Cryptogs.io and Galleass.io so no need to reinvent the wheel. I'll copy that in and set it up to run for both Nifties.io and Nfties.io and fire it off. [Here is the script I used.](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/src/deployNifties.js)
+Now, I need to deploy my code to S3. I already have a deployment script I use for Cryptogs.io and Galleass.io so no need to reinvent the wheel. I'll copy that in and set it up to run for both Nifties.io and Nfties.io and fire it off. [Here is the script I used.](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/deployNifties.js)
 
 Because I'm uploading a shart load of assets, I have some downtime to work on getting **Cloudfront** and **SSL** in front of these domains. First, I'll use AWS ACM to create SSL certificates for both domains. Because I have the domains registered in AWS Route53, Amazon does all the DNS validation for me, I just click through the dialogs.
 
