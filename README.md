@@ -6,8 +6,6 @@
 
 Visit https://nifties.io or https://nfties.io depending one which one you like best!
 
-![nifties vs nfties](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/niftiesvsnfties.png)
-
 I'm not able to attend the [NIFTY hackathon in Hong Kong](https://www.nifty.gg/), but I love to **#BUIDL** with NFTs so I decided to take the day off work to make a fun little project based around this poll about 👁️'s in Nifties:
 
 ![the great poll begins](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/thegreatpoll.png)
