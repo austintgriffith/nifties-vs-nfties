@@ -23,17 +23,17 @@ var params = {
 const { exec } = require('child_process');
 console.log("BUILDING AND DEPLOYING TO https://nifties.io -- run: 'ipfs daemon' to deploy to ipfs and 'node invalidate.js' to invalidate the cache.... ")
 console.log("npm run build")
-exec('npm run build', (err, stdout, stderr) => {
-  if (err) {
+//exec('npm run build', (err, stdout, stderr) => {
+  //if (err) {
     // node couldn't execute the command
-    if(err){
-      console.log("ERROR ON BUILD",err)
-    }
-    return;
-  }
+  //  if(err){
+  //    console.log("ERROR ON BUILD",err)
+  //  }
+  //  return;
+//  }
   // the *entire* stdout and stderr (buffered)
-  console.log(`${stdout}`);
-  console.log(`${stderr}`);
+//  console.log(`${stdout}`);
+//  console.log(`${stderr}`);
   //clean out / so it works on nested locations like ipfs
   let index = fs.readFileSync("build/index.html").toString();
   index = index.split("\"\/").join("\"");
@@ -81,4 +81,4 @@ exec('npm run build', (err, stdout, stderr) => {
 
       });
   })
-});
+//});
