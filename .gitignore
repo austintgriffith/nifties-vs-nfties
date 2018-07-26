@@ -8,7 +8,7 @@ public/reload.txt
 deploy.log
 
 public/tokens/*
-
+public/monsters/*
 # dependencies
 /node_modules
 

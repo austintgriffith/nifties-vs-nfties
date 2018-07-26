@@ -23,6 +23,11 @@ class App extends Component {
       nifties: [],
       nfties: [],
     }
+    //load in offline.js values prepopulated with an S3 push from the Geth server
+    if(window.offline){
+      if(window.offline.cachednifties) this.state.offlinenifties = window.offline.cachednifties
+      if(window.offline.cachednfties) this.state.offlinenfties = window.offline.cachednfties
+    }
   }
   componentDidMount() {
     //the grid is weird so we have to force a couple updates to get it to
@@ -30,6 +35,8 @@ class App extends Component {
     setTimeout(()=>{this.forceUpdate()},1000)
     setTimeout(()=>{this.forceUpdate()},3000)
     setTimeout(()=>{this.forceUpdate()},9000)
+    setTimeout(()=>{this.forceUpdate()},19000)
+    setTimeout(()=>{this.forceUpdate()},45000)
     setInterval(()=>{
       this.loadCachedData()
     },15000)
@@ -187,7 +194,7 @@ class App extends Component {
              >
              {currentStyles => {
                return (
-                 <div style={{position:"relative",overflow:"hidden",width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
+                 <div style={{zIndex:99,position:"relative",overflow:"hidden",width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
                   {theNftDisplay}
                  </div>
                )
@@ -207,10 +214,11 @@ class App extends Component {
 
     let niftieDisplayCount = 0
     let niftiesObject = this.state.nifties
-    if(!niftiesObject) niftiesObject = this.state.cachednifties
+    if(this.state.cachednifties && (!niftiesObject || niftiesObject.length<=0)) niftiesObject = this.state.cachednifties
+    if(this.state.offlinenifties && (!niftiesObject || niftiesObject.length<=0)) niftiesObject = this.state.offlinenifties
     let allNifties = niftiesObject.map((token)=>{
       if(token._id && niftieDisplayCount++<TOKENDISPLAYLIMIT){
-        let thisImage = "tokens/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
+        let thisImage = "monsters/nifties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+".png";
         return (
           <div key={"niftieToken"+niftieDisplayCount}>
             <div style={{position:'absolute',right:0,bottom:40}}>
@@ -229,11 +237,23 @@ class App extends Component {
     if(this.state.nifties){
       niftiesCount = this.state.nifties.length
     }
+    if(this.state.cachednifties){
+      niftiesCount = Math.max(niftiesCount,this.state.cachednifties.length)
+    }
+    if(this.state.offlinenifties){
+      niftiesCount = Math.max(niftiesCount,this.state.offlinenifties.length)
+    }
+
     let niftCTA = ""
     if(!nft){
       niftCTA = (
         <img src="feedthenifties.png" style={bigButtonStyle} onClick={()=>{
-          tx(contracts.Nifties.create())
+          if(contracts){
+            tx(contracts.Nifties.create(),420000)
+          }else{
+            alert('Please use Mobile Wallet or Metamask to Play')
+          }
+
         }} />
       )
     }else{
@@ -260,11 +280,12 @@ class App extends Component {
 
     let nftieDisplayCount = 0
     let nftiesObject = this.state.nfties
-    if(!nftiesObject) nftiesObject = this.state.cachednfties
+    if(this.state.cachednfties && (!nftiesObject || nftiesObject.length<=0 )) nftiesObject = this.state.cachednfties
+    if(this.state.offlinenfties && (!nftiesObject || nftiesObject.length<=0)) nftiesObject = this.state.offlinenfties
     let allNfties = nftiesObject.map((token)=>{
 
       if(token._id && nftieDisplayCount++<TOKENDISPLAYLIMIT){
-        let thisImage = "tokens/nfties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+"-"+token._extra+".png";
+        let thisImage = "monsters/nfties-"+token._body+"-"+token._feet+"-"+token._head+"-"+token._mouth+"-"+token._extra+".png";
         return (
           <div key={"nftieToken"+nftieDisplayCount}>
             <div style={{position:'absolute',right:0,bottom:40}}>
@@ -283,12 +304,22 @@ class App extends Component {
     if(this.state.nfties){
       nftiesCount = this.state.nfties.length
     }
+    if(this.state.cachednfties){
+      nftiesCount = Math.max(nftiesCount,this.state.cachednfties.length)
+    }
+    if(this.state.offlinenfties){
+      nftiesCount = Math.max(nftiesCount,this.state.offlinenfties.length)
+    }
 
     let nftCTA = ""
     if(nft){
       nftCTA = (
         <img src="feedthenfties.png" style={bigButtonStyle} onClick={()=>{
-          tx(contracts.Nfties.create())
+          if(contracts){
+            tx(contracts.Nfties.create(),420000)
+          }else{
+            alert('Please use Mobile Wallet or Metamask to Play')
+          }
         }} />
       )
     }else{
