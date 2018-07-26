@@ -22,6 +22,7 @@ class App extends Component {
       openInventory: 0,
       nifties: [],
       nfties: [],
+      inventoryText:""
     }
     //load in offline.js values prepopulated with an S3 push from the Geth server
     if(window.offline){
@@ -41,6 +42,21 @@ class App extends Component {
       this.loadCachedData()
     },15000)
     this.loadCachedData()
+
+
+    console.log("waiting to show hint")
+    setTimeout(()=>{
+      console.log("probably showing hint",this.state.openInventory)
+      if(this.state.openInventory<50){
+        console.log("showing hint...")
+        this.setState({openInventory:50,inventoryText:"Should we call ERC-721 tokens Nifties or Nfties? You decide by feeding monsters with or without eyes..."})
+        setTimeout(()=>{
+          if(this.state.openInventory<60){
+            this.setState({openInventory:0})
+          }
+        },20000)
+      }
+    },4500)
   }
   loadCachedData(){
     if(!this.state.web3 || !this.state.contracts){
@@ -148,10 +164,10 @@ class App extends Component {
     )
 
     let inventory
-
+    let theNftDisplay = ""
     if(web3&&contracts&&contracts.Nfties&&contracts.Nifties){
 
-      let theNftDisplay = ""
+
 
       if(nft){
         theNftDisplay = (
@@ -162,7 +178,7 @@ class App extends Component {
             tx={tx}
             onUpdate={(tokensOfOwner)=>{
               if(tokensOfOwner.length>0){
-                this.setState({openInventory:160})
+                this.setState({openInventory:160,inventoryText:""})
               }
             }}
           />
@@ -176,32 +192,33 @@ class App extends Component {
             tx={tx}
             onUpdate={(tokensOfOwner)=>{
               if(tokensOfOwner.length>0){
-                this.setState({openInventory:160})
+                this.setState({openInventory:160,inventoryText:""})
               }
             }}
           />
         )
       }
-
-      inventory = (
-        <Motion
-             defaultStyle={{
-               openAmount:0
-             }}
-             style={{
-               openAmount:spring(this.state.openInventory,{ stiffness: 80, damping: 8 })
-             }}
-             >
-             {currentStyles => {
-               return (
-                 <div style={{zIndex:99,position:"relative",overflow:"hidden",width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
-                  {theNftDisplay}
-                 </div>
-               )
-             }}
-        </Motion>
-      )
     }
+
+    inventory = (
+      <Motion
+           defaultStyle={{
+             openAmount:0
+           }}
+           style={{
+             openAmount:spring(this.state.openInventory,{ stiffness: 80, damping: 8 })
+           }}
+           >
+           {currentStyles => {
+             return (
+               <div style={{zIndex:99,position:"relative",overflow:"hidden",textAlign:"center",fontSize:20,paddingTop:10,width:"100%",backgroundImage:"url('grad1.png')", backgroundRepeat:"repeat-x",height:currentStyles.openAmount,borderBottom:"3px solid #444444",borderTop:"1px solid #444444"}}>
+                {this.state.inventoryText}
+                {theNftDisplay}
+               </div>
+             )
+           }}
+      </Motion>
+    )
 
     let bigButtonStyle = {
         maxWidth:200,
