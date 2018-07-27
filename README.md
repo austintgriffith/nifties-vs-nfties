@@ -622,7 +622,7 @@ if(!niftiesObject) niftiesObject = this.state.cachednifties
 let allNifties = niftiesObject.map((token)=>{
 ```
 
-And just like that, even when someone visits without any kind of injected web3, the will still get a list of monsters and see who how the votes look...
+And just like that, even when someone visits without any kind of injected web3, the will still get a list of monsters and see how the votes look...
 
 ### Without MetaMask:
 
@@ -631,6 +631,48 @@ And just like that, even when someone visits without any kind of injected web3, 
 ### With MetaMask:
 
 [![screenwithmetamask.png](https://raw.githubusercontent.com/austintgriffith/nifties-vs-nfties/master/public/screenwithmetamask.png) https://nifties.io (with web3 injected)](https://nifties.io)
+
+The backend needed to run at boot, but since the Geth node is still syncing at boot, I wait until I can start reading the **name** from the **Nifties** contract before I start parsing down the chain:
+
+```
+function checkForGeth() {
+  contracts["Nifties"].methods.name().call({}, function(error, result){
+      console.log("NAME",error,result)
+      if(error){
+        setTimeout(checkForGeth,15000);
+      }else{
+        startParsers()
+      }
+  });
+}
+checkForGeth()
+```
+
+Finally, I needed to make sure this backend started at boot so I did:
+
+```
+cd backend
+pm2 start niftiescache.js
+pm2 save
+pm2 startup
+```
+
+-----
+
+## Final Thoughts
+
+I made a couple changes after my 24 hour window to help with UI/UX:
+
+1) I reuploaded the same set of images but compressed down to 160x160 to the /monsters/ directory. So the tokenURI still points to the large 400x400 assets in the /tokens/ directory, but when they are displayed as a large grid on the frontend, they are 160x160. This decreased page load time immensely.  
+
+| /monsters/  | /tokens |
+| ------------- | ------------- |
+| ![nifties-2-3-3-4](https://nifties.io/monsters/nifties-2-3-3-4.png)  | ![](https://nifties.io/tokens/nifties-2-3-3-4.png)  |
+| (160x160 45KB) | (400x400 152KB)  |
+
+2) I added just a little more wording to make it clear exaclty what was going on. "Should we call ERC-721 tokens Nifties or Nfties? You decide..."
+
+3) The Geth cache server is good and keeps non-web3 clients updated live, but I wanted to make sure there wasn't any single point of failure. I upgraded [the backend](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/backend/niftiescache.js) to push an [offline.js](https://nifties.io/offline.js) file every time there is a new **Create** event triggered (debounced of course). This way, even if my cache.nifties.io endpoint were to fail, the latest state will remain on the static server, loaded in the [index.html](https://github.com/austintgriffith/nifties-vs-nfties/blob/master/public/index.html#L35). Non-web3 visitors will still get a general idea of what's up, even if it is behind a few votes. One gotcha here is CloudFront does a lot of caching in front of this offline.js so it could be served stale. So the site loads the offline.js first, then hit's the https://cache.nifties.io to get more up-to-date information, and finally tries to hit your injected web3 to pull from the directly (through metamask/trust -> infura etc).
 
 
 
