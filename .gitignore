@@ -7,6 +7,7 @@ openzeppelin-solidity/
 public/reload.txt
 deploy.log
 
+public/offline.js
 public/tokens/*
 public/monsters/*
 # dependencies
