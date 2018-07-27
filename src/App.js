@@ -49,7 +49,7 @@ class App extends Component {
       console.log("probably showing hint",this.state.openInventory)
       if(this.state.openInventory<50){
         console.log("showing hint...")
-        this.setState({openInventory:50,inventoryText:"Should we call ERC-721 tokens Nifties or Nfties? You decide by feeding monsters with or without eyes..."})
+        this.setState({openInventory:50,inventoryText:"Should we call ERC-721 tokens Nifties or Nfties? You decide..."})
         setTimeout(()=>{
           if(this.state.openInventory<60){
             this.setState({openInventory:0})
