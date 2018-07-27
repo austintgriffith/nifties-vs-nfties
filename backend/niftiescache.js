@@ -135,7 +135,7 @@ app.use(helmet());
 app.get('/', (req, res) => {
   console.log("/")
   res.set('Content-Type', 'application/json');
-  res.end(JSON.stringify({cachednifties:Nifties.slice().reverse().slice(0,25),cachednfties:Nfties.slice().reverse().slice(0,25)}));
+  res.end(JSON.stringify({cachednifties:Nifties.slice().reverse().slice(0,50),cachednfties:Nfties.slice().reverse().slice(0,50)}));
 
 });
 
