@@ -390,7 +390,7 @@ class App extends Component {
           </div>
           <div>
             <Scaler config={{origin:"left bottom"}}>
-              <a href="https://github.com/austintgriffith/nifties-vs-nfties"><img src="wtfisthis.png" style={{maxHeight:50,cursor:"pointer"}}/></a>
+              <a href="https://github.com/austintgriffith/nifties-vs-nfties/blob/master/README.md"><img src="wtfisthis.png" style={{maxHeight:50,cursor:"pointer"}}/></a>
             </Scaler>
           </div>
           </StackGrid>
