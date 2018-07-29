@@ -82,7 +82,7 @@ function writeOfflineCache(){
     if (!fs.existsSync(dir)){
       fs.mkdirSync(dir);
     }
-    fs.writeFile(dir+"/offline.js","window.offline = "+JSON.stringify({cachednifties:Nifties.slice().reverse().slice(0,25),cachednfties:Nfties.slice().reverse().slice(0,25)}),(a,b)=>{
+    fs.writeFile(dir+"/offline.js","window.offline = "+JSON.stringify({cachednifties:Nifties.slice().reverse().slice(0,50),cachednfties:Nfties.slice().reverse().slice(0,50)}),(a,b)=>{
       console.log("wrote offline.js",a,b)
       console.log("uploading offline.js to nfties.io...")
       uploadOfflineTo("nfties.io",()=>{
